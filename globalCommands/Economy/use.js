@@ -64,6 +64,15 @@ module.exports = {
             .setFooter(guild.name, guild.iconURL({ dynamic: true }))
         ]});
 
+        if (!UserInv.Inventory.includes(client.capitalizeFirst(item))) return interaction.followUp({ embeds: [
+            new MessageEmbed()
+            .setAuthor(`${guild.name} Server | Use`)
+            .setDescription(`${user}, You do not have the item **${item}** in your inventory!`)
+            .setColor("RED")
+            .setTimestamp()
+            .setFooter(guild.name, guild.iconURL({ dynamic: true }))
+        ]});
+
         if (item == "laptop") {
             const options = new MessageEmbed()
             .setAuthor(`${guild.name} Server | Use`)

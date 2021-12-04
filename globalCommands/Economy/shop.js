@@ -57,7 +57,7 @@ module.exports = {
         if (!included) return interaction.followUp({ embeds: [
             new MessageEmbed()
             .setAuthor(`${guild.name} Server | Shop`)
-            .setDescription(`${user}, The item **${item}** does not exist!\nThese are the valid items:\n${(EconomyData.Shop).map((i) => `\`\`\`js\nItem: ${i.name}\nPrice: F$${i.price?.toLocaleString()}\n\`\`\``).join("\n").toString()}`)
+            .setDescription(`${user}, The item **${item}** does not exist!\nThese are the valid items:\n${(EconomyData.Shop).map((i) => `\`\`\`js\nItem: ${i.name}\nPrice: F$${i.price?.toLocaleString()}\nDescription: ${i.description}\n\`\`\``).join("\n").toString()}`)
             .setColor("BLURPLE")
             .setTimestamp()
             .setFooter(guild.name, guild.iconURL({ dynamic: true }))
