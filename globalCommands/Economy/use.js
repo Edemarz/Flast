@@ -79,7 +79,7 @@ module.exports = {
             const msgColl = await interaction.channel.createMessageCollector({ filter, time: 25000 });
 
             msgColl.on('collect', async (message) => {
-                if (!["p", "pc"].includes(message.content?.toLowerCase())) interaction.followUp({ embeds: [
+                if (!["p", "rtd"].includes(message.content?.toLowerCase())) interaction.followUp({ embeds: [
                     client.createEmbed({
                         text: `${user}, The option **${message.content}** is not a valid option!`,
                         color: "RED",
@@ -240,17 +240,17 @@ module.exports = {
 
             if (reason == "call") {
                 interaction.followUp({ content: `${user} is ringing the developer.`}).then(async (msg) => {
-                    await sleep(1)
+                    await sleep(1.5)
                     msg.edit({ content: `${user} is ringing the developer..` });
-                    await sleep(1)
+                    await sleep(1.5)
                     msg.edit({ content: `${user} is ringing the developer...` });
-                    await sleep(1)
+                    await sleep(1.5)
                     msg.edit({ content: `${user} is ringing the developer.` });
-                    await sleep(1)
+                    await sleep(1.5)
                     msg.edit({ content: `${user} is ringing the developer..` });
-                    await sleep(1)
+                    await sleep(1.5)
                     msg.edit({ content: `${user} is ringing the developer...` });
-                    await sleep(1)
+                    await sleep(1.5)
                     const connectedLol = new MessageEmbed()
                     .setAuthor(`${guild.name} Server | Voice Connected`)
                     .setDescription(`${user.username} > Why do you make the bot bad?`)
@@ -259,7 +259,7 @@ module.exports = {
                     .setFooter(guild.name, guild.iconURL({ dynamic: true }))
 
                     interaction.followUp({ embeds: [connectedLol] }).then(async (msg) => {
-                        await sleep(0.5);
+                        await sleep(1.5);
                         const connectedLol1 = new MessageEmbed()
                     .setAuthor(`${guild.name} Server | Voice Connected`)
                     .setDescription(`${user.username} > Why do you make the bot bad?\nEdemarz > It's not bad, it's perfect.`)
@@ -268,7 +268,7 @@ module.exports = {
                     .setFooter(guild.name, guild.iconURL({ dynamic: true }))
 
                     msg.edit({ embeds: [connectedLol1] });
-                    await sleep(0.5);
+                    await sleep(1.5);
                     const connectedLol2 = new MessageEmbed()
                     .setAuthor(`${guild.name} Server | Voice Connected`)
                     .setDescription(`${user.username} > Why do you make the bot bad?\nEdemarz > It's not bad, it's perfect.\n${user.username} > No u, Now goodbye lol.`)
@@ -276,7 +276,7 @@ module.exports = {
                     .setTimestamp()
                     .setFooter(guild.name, guild.iconURL({ dynamic: true }))
                     msg.edit({ embeds: [connectedLol2] });
-                    await sleep(0.5);
+                    await sleep(1.5);
                     const connectedLol3 = new MessageEmbed()
                     .setAuthor(`${guild.name} Server | Voice Disconnected`)
                     .setDescription(`${user.username} > Why do you make the bot bad?\nEdemarz > It's not bad, it's perfect.\n${user.username} > No u, Now goodbye lol.\n\nCall Ended.`)
