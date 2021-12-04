@@ -119,7 +119,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 interaction.followUp({ embeds: [embed] }).then(async (msg) => {
-                    await sleep(1);
+                    await sleep(1.5);
                     const embed1 = new MessageEmbed()
                 .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
                 .setDescription(`${user}, You have posted a meme on ${options[randOptions]}.\nPlease wait for reviews..`)
@@ -128,7 +128,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 await msg.edit({ embeds: [embed1] });
-                await sleep(1);
+                await sleep(1.5);
                     const embed2 = new MessageEmbed()
                 .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
                 .setDescription(`${user}, You have posted a meme on ${options[randOptions]}.\nPlease wait for reviews...`)
@@ -137,7 +137,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 await msg.edit({ embeds: [embed2] });
-                await sleep(1);
+                await sleep(1.5);
                     const embed3 = new MessageEmbed()
                 .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
                 .setDescription(`${user}, You have posted a meme on ${options[randOptions]}.\nPlease wait for reviews.`)
@@ -146,7 +146,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 await msg.edit({ embeds: [embed3] });
-                await sleep(1);
+                await sleep(1.5);
                     const embed4 = new MessageEmbed()
                 .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
                 .setDescription(`${user}, You have posted a meme on ${options[randOptions]}.\nPlease wait for reviews..`)
@@ -155,7 +155,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 await msg.edit({ embeds: [embed4] });
-                await sleep(1);
+                await sleep(1.5);
                     const embed5 = new MessageEmbed()
                 .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
                 .setDescription(`${user}, You have posted a meme on ${options[randOptions]}.\nPlease wait for reviews...`)
@@ -164,7 +164,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 await msg.edit({ embeds: [embed5] });
-                await sleep(1);
+                await sleep(1.5);
                     const embed6 = new MessageEmbed()
                 .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
                 .setDescription(`${user}, You have posted a meme on ${options[randOptions]}.\nPlease wait for reviews.`)
@@ -173,7 +173,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 await msg.edit({ embeds: [embed6] });
-                await sleep(1);
+                await sleep(1.5);
                     const embed7 = new MessageEmbed()
                 .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
                 .setDescription(`${user}, You have posted a meme on ${options[randOptions]}.\nPlease wait for reviews..`)
@@ -182,7 +182,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 await msg.edit({ embeds: [embed7] });
-                await sleep(1);
+                await sleep(1.5);
                     const embed8 = new MessageEmbed()
                 .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
                 .setDescription(`${user}, You have posted a meme on ${options[randOptions]}.\nPlease wait for reviews...`)
@@ -191,7 +191,7 @@ module.exports = {
                 .setFooter(guild.name, guild.iconURL({ dynamic: true }));
 
                 await msg.edit({ embeds: [embed8] });
-                await sleep(1);
+                await sleep(1.5);
                 
                 if (likeReviews > hateReviews) {
                     const aM = Math.floor(Math.random() * 50000) + 1;

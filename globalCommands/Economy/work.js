@@ -445,7 +445,7 @@ module.exports = {
                                     };
 
                                     if (theComp >= 1) {
-                                        await winningGameData.slice(theComp, theComp)
+                                        await winningGameData.slice(theComp, theComp + 1)
                                     };
 
                                     for (const compGameData of winningGameData) {

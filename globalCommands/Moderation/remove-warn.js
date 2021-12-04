@@ -78,7 +78,7 @@ module.exports = {
 
         if (warningToRemove) {
             const data = DBCheck.Warns[warningToRemove];
-            await DBCheck.Warns.splice(warningToRemove, warningToRemove);
+            await DBCheck.Warns.splice(warningToRemove, warningToRemove + 1);
             await DBCheck.updateOne({
                 GuildID: guild.id,
                 UserID: user.id,
