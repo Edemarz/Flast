@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= client.user.username %> - Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../public/index.css">
+    </head>
+    <body>
+        <div class="navbar-first">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <img src="../img/flask_logo.png" alt="" class="flast-img" onclick="redToHome()">
+                  <a class="navbar-brand" href="http://localhost:3001/">Flast</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="http://localhost:3001/commands">Commands</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<%= clientSettings.Flast.Server %>">Support & Community Server</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href=<%= process.env.INVITE_URL %>>Invite Me!</a>
+                      </li>
+                    </ul>
+                    <% req.isAuthenticated() ? ["placeholder for function"].forEach(() => { %>
+                      <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                        <ul class="navbar-nav">
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle user-data" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <span draggable="false">
+                                <% req.user ? [`https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}`].forEach((av) => { %>
+                                  <img src="<%= av %>" alt="" class="icon-url-user">
+                                  <% }) : null %>&nbsp;<strong class="user-name"><%= req.user.username %></strong>
+                              </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark user-items" aria-labelledby="navbarDarkDropdownMenuLink">
+                              <li><a class="dropdown-item" href="http://localhost:3001/dashboard">Dashboard</a></li>
+                              <li class="logout-class"><a class="dropdown-item" href="http://localhost:3001/logout">Log Out</a></li>
+                              <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                
+                <% }) : ["placeholder for function"].forEach(() => { %>
+                  <button class="navbar-link active loginBtn" onclick="loginSystem('log')">Login</button>
+                    <% }) %>
+                </div>
+                </div>
+              </nav>
+        </div>
+        <div class="main-dash">
+          <h1 class="welc-msg">Welcome <%= user.username %>#<%= user.discriminator %> to <%= client.user.username %> Dashboard!</h1>
+          <h2 class="welc-inf">With the Dashboard you can manage the Settings of each single Guild individually!<br>
+            Only if you have the <strong>Manage Server</strong> Permission, cause that's needed for that the Dashboard!</h2>
+          <% if (user && user.id) {%>
+            <% user.guilds
+              .filter((guild) => {
+                const permsOnGuild = new Permissions(guild.permissions_new);
+                if(permsOnGuild.has(Permissions.FLAGS.MANAGE_GUILD)) return guild;
+              })
+              .sort((a, b) => {
+                return (client.guilds.cache.get(a.id) === client.guilds.cache.get(b.id)) ? 0 : a ? -1 : 1;
+              })
+              .forEach(guild => {
+              %>
+              <div class="card text-white mb-3">
+                <%- guild.icon ? `<img src="https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}" class="card-img-top" style="max-width: 250px;width: 250px;">` : `<img src="https://cdn.discordapp.com/attachments/765919453766352916/877787616974622770/wCfHtuoejLIbAAAAABJRU5ErkJggg.png" class="card-img-top" style="max-width: 250px;width: 250px;">` %>
+                  <div class="card-img-overlay text-grey h-100 d-flex flex-column justify-content-end" style="background:#000000b0;max-width: 250px;width: 250px;">
+                    <h5 class="card-title text-primary" style="font-size: 25px;"><strong><%= guild.name %></strong></h5>
+                    <% if (client.guilds.cache.get(guild.id)) { %>
+                      <p class="card-text" style="font-size: 12px;font-style: italic;color: #b3b3b3">Edit <b><%= guild.name %></b>'s Settings via the Dashboard by clicking the Button below!</p>
+                      <a style="font-size: 25px;"
+                      href="<%- clientSettings.Dashboard.host %>/dashboard/<%- guild.id %>" 
+                      class="mt-auto btn btn-lg btn-block btn-success sdl">Edit Settings</a>
+                    <% } else { %>
+                      <p class="card-text" style="font-size: 12px;font-style: italic;color: #b3b3b3">Invite me to <b><%= guild.name %></b>to view & change the guild's Settings via the Dashboard by clicking the button below!</p>
+                      <a style="font-size: 25px;"
+                      href="<%= `https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot%20applications.commands&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(`${clientSettings.Dashboard.host}/callback`)}`  %>" 
+                      class="mt-auto btn btn-lg btn-block btn-primary sdl">Invite Bot</a>
+                    <% } %>
+                  </div>
+                </div>
+              <% }); %>
+            <% } %>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        <script>
+            function loginSystem(state) {
+                if (state === 'authed') {
+                    location.href = `http://localhost:3001/dashboard`
+                };
+                if (state === 'log') {
+                    location.href = `http://localhost:3001/login`
+                };
+            };
+
+            function a() {
+              if (!req.isAuthenticated()) {
+                location.href = "http://localhost:3001/login"
+              } 
+            }
+
+            window.onload(a())
+        </script>
+    </body>
+</html>

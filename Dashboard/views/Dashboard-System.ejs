@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title><%= client.user.username %> - Guild Settings</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../public/index.css">
+    </head>
+    <body class="scrollable">
+        <div class="navbar-first">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <img src="../img/flask_logo.png" alt="" class="flast-img" onclick="redToHome()">
+                  <a class="navbar-brand" href="http://localhost:3001/">Flast</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="http://localhost:3001/commands">Commands</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<%= clientSettings.Flast.Server %>">Support & Community Server</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href=<%= process.env.INVITE_URL %>>Invite Me!</a>
+                      </li>
+                    </ul>
+                    <% req.isAuthenticated() ? ["placeholder for function"].forEach(() => { %>
+                        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                          <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle user-data" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span draggable="false">
+                                  <% req.user ? [`https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}`].forEach((av) => { %>
+                                    <img src="<%= av %>" alt="" class="icon-url-user">
+                                    <% }) : null %>&nbsp;<strong class="user-name"><%= req.user.username %></strong>
+                                </span>
+                              </a>
+                              <ul class="dropdown-menu dropdown-menu-dark user-items" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="http://localhost:3001/dashboard">Dashboard</a></li>
+                                <li class="logout-class"><a class="dropdown-item" href="http://localhost:3001/logout">Log Out</a></li>
+                                <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                  
+                  <% }) : ["placeholder for function"].forEach(() => { %>
+                    <button class="navbar-link active loginBtn" onclick="loginSystem('log')">Login</button>
+                      <% }) %>
+                  </div>
+                </div>
+              </nav>
+        </div>
+        <div class="server-settings">
+            <div class="row">
+                <div class="col-4">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active grouped-as-sp" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Suggestion System</a>
+                    <a class="list-group-item list-group-item-action grouped-as-sp" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Mute System</a>
+                    <a class="list-group-item list-group-item-action grouped-as-sp" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Verification System</a>
+                    <a class="list-group-item list-group-item-action grouped-as-sp" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Welcome System</a>
+                    <a class="list-group-item list-group-item-action grouped-as-sp" id="list-settings-ticke" data-bs-toggle="list" href="#list-settings-ticket" role="tab" aria-controls="list-settings">Ticket System</a>
+                    <a class="list-group-item list-group-item-action grouped-as-sp" id="list-settings-eco-comm" data-bs-toggle="list" href="#list-settings-eco-commands" role="tab" aria-controls="list-settings">Disable / Enable Economy Commands</a>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active grouped-as-sk" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                        <form method="POST">
+                            <h5 class="as-group-b">Suggestion Channel</h5>
+                            <p class="as-group-c">The channel where suggestions will be sent!.</p>
+                            <select class="form-control selectpicker as-group-d"  
+                            data-width="100%"
+                            data-live-search="true" 
+                            aria-label="Suggestion Channel"
+                            name="suggestion">
+                            <% guild.channels.cache.filter((ch) => ch.id && ch.isText()).sort((a, b) => a.rawPosition - b.rawPosition).forEach((channel) => { %>
+                                <option value="<%= channel.id %>">
+                                    #<%= channel.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                        <button type="submit" class="btn btn-success text-white as-aaa">
+                            <i class="iconify" data-icon="cil:save"></i> Save Settings</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade grouped-as-sk" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                        <form method="POST">
+                            <h5 class="as-group-b">Mute System</h5>
+                                <p class="as-group-c">Set up the Mute System from the Dashboard!</p>
+                                <h1 class="as-group-s">Mute Role</h1>
+                                <select class="form-control selectpicker as-group-d"  
+                                data-width="100%"
+                                data-live-search="true" 
+                                aria-label="Mute Role"
+                                name="muterole">
+                                <% guild.roles.cache.filter((rl) => rl.id).sort((a, b) => b.rawPosition - a.rawPosition).forEach((rl) => { %>
+                                    <option value="<%= rl.id %>">
+                                        @<%= rl.name %>
+                                    </option>
+                                    <% }) %>
+                            </select><br>
+                            <h1 class="as-group-s">Member Role</h1>
+                            <select class="form-control selectpicker as-group-d"  
+                                data-width="100%"
+                                data-live-search="true" 
+                                aria-label="Member Role"
+                                name="memrole">
+                                <% guild.roles.cache.filter((rl) => rl.id).sort((a, b) => b.rawPosition - a.rawPosition).forEach((rl) => { %>
+                                    <option value="<%= rl.id %>">
+                                        @<%= rl.name %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                            <button type="submit" class="btn btn-success text-white as-aaa">
+                                <i class="iconify" data-icon="cil:save"></i> Save Settings</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade grouped-as-sk" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                        <form method="POST">
+                            <h5 class="as-group-b">Verification System</h5>
+                                <p class="as-group-c">Set up the Verification System from the Dashboard!</p>
+                                <h1 class="as-group-s">Verification Channel</h1>
+                                <select class="form-control selectpicker as-group-d"  
+                                data-width="100%"
+                                data-live-search="true" 
+                                aria-label="Verification Channel"
+                                name="verchannel">
+                                <% guild.channels.cache.filter((ch) => ch.id && ch.isText()).sort((a, b) => a.rawPosition - b.rawPosition).forEach((channel) => { %>
+                                    <option value="<%= channel.id %>">
+                                        #<%= channel.name %>
+                                    </option>
+                                    <% }) %>
+                            </select><br>
+                            <h1 class="as-group-s">Verification Role</h1>
+                            <select class="form-control selectpicker as-group-d"  
+                                data-width="100%"
+                                data-live-search="true" 
+                                aria-label="Verification Role"
+                                name="verrole">
+                                <% guild.roles.cache.filter((rl) => rl.id).sort((a, b) => b.rawPosition - a.rawPosition).forEach((rl) => { %>
+                                    <option value="<%= rl.id %>">
+                                        @<%= rl.name %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                            <h1 class="as-group-s">Verification Type</h1>
+                            <select class="form-control selectpicker as-group-d"  
+                                data-width="100%"
+                                data-live-search="true" 
+                                aria-label="Verification Type"
+                                name="vertype">
+                                <option value="text-based">
+                                    Text-Based Verification
+                                </option>
+                                <option value="react-based">
+                                    Reaction-Based Verification
+                                </option>
+                            </select>
+                            <button type="submit" class="btn btn-success text-white as-aaa">
+                                <i class="iconify" data-icon="cil:save"></i> Save Settings</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade grouped-as-sk" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                        <form method="POST">
+                            <h5 class="as-group-b">Welcome System</h5>
+                                <p class="as-group-c">Set the Welcome System from the Dashboard!</p>
+                                <h1 class="as-group-s">Welcome Channel</h1>
+                                <select 
+                                    class="form-control selectpicker as-group-d" 
+                                    data-width="100%"
+                                    data-live-search="true" 
+                                    aria-label="Welcome Channel"
+                                    name="welcchannel"
+                                >
+                                    <% guild.channels.cache.filter((ch) => ch.id && ch.isText()).sort((a, b) => a.rawPosition - b.rawPosition).forEach((channel) => { %>
+                                        <option value="<%= channel.id%>">
+                                            #<%= channel.name%>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                                <h1 class="as-group-s">Welcome Role</h1>
+                                <select 
+                                    class="form-control selectpicker as-group-d" 
+                                    data-width="100%"
+                                    data-live-search="true" 
+                                    aria-label="Welcome Role"
+                                    name="welcrole"
+                                >
+                                    <% guild.roles.cache.filter((rl) => rl.id).sort((a, b) => b.rawPosition - a.rawPosition).forEach((role) => { %>
+                                        <option value="<%= role.id%>">
+                                            @<%= role.name%>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                                <button type="submit" class="btn btn-success text-white as-aaa">
+                                    <i class="iconify" data-icon="cil:save"></i> Save Settings</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade grouped-as-sk" id="list-settings-ticket" role="tabpanel" aria-labelledby="list-settings-ticke">
+                        <form method="POST">
+                            <h5 class="as-group-b">Ticket System</h5>
+                                <p class="as-group-c">Set up the Ticket System from the Dashboard!</p>
+                                <h1 class="as-group-s">Ticket Channel</h1>
+                                <select 
+                                class="form-control selectpicker as-group-d"
+                                    data-width="100%"
+                                    data-live-search="true" 
+                                    aria-label="Ticket Channel"
+                                    name="tickchannel"
+                                >
+                                    <% guild.channels.cache
+                                        .filter((channel) => channel.isText() && channel.id)
+                                        .sort((a, b) => a.rawPosition - b.rawPosition)
+                                        .forEach((channel) => { %>
+                                        <option value="<%= channel.id%>">
+                                            #<%= channel.name%>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                                <h1 class="as-group-s">Ticket Manager Role</h1>
+                                <select 
+                                class="form-control selectpicker as-group-d"
+                                    data-width="100%"
+                                    data-live-search="true" 
+                                    aria-label="Ticket Manager Role"
+                                    name="tickmanager">
+                                    <% guild.roles.cache
+                                        .filter((rl) => rl.id)
+                                        .sort((a, b) => b.rawPosition - a.rawPosition)
+                                        .forEach((role) => { %>
+                                        <option value="<%= role.id%>">
+                                            @<%= role.name%>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                                <h1 class="as-group-s">Ticket Description</h1>
+                                <input class="as-group-dbb form-control selectpicker" placeholder="Ticket Description" value="This is a ticket description" type="text" aria-label="Ticket Description" name="tickdesc" data-width="100%", data-live-search="true">
+                                <h1 class="as-group-s">Ticket Title</h1>
+                                <input class="as-group-dbb form-control selectpicker" placeholder="Ticket Title" value="This is a ticket title" type="text" aria-label="Ticket Title" name="ticktitle" data-width="100%", data-live-search="true">
+                                <h1 class="as-group-s">Ticket Color</h1>
+                                <select 
+                                    class="form-control selectpicker as-group-d" 
+                                    data-width="100%"
+                                    data-live-search="true" 
+                                    aria-label="Ticket Color"
+                                    name="tickcolor"
+                                >
+                                <% client.validatedColors.forEach((clr) => { %>
+                                    <option value="<%= clr %>">
+                                        <%= client.capitalizeFirst(clr) %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                                <button type="submit" class="btn btn-success text-white as-aaa">
+                            <i class="iconify" data-icon="cil:save"></i> Save Settings</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade grouped-as-sk" id="list-settings-eco-commands" role="tabpanel" aria-labelledby="list-settings-eco-comm">
+                        <form method="POST">
+                            <h5 class="as-group-b">Disable / Enable Economy Commands Settings</h5>
+                                <p class="as-group-c">Disable or Enable an Economy Command!</p>
+                                <h1 class="as-group-s">Command To Enable / Disable</h1>
+                                <select 
+                                class="form-control selectpicker as-group-d"
+                                    data-width="100%"
+                                    data-live-search="true" 
+                                    aria-label="Enable / Disable Command"
+                                    name="disecocmd"
+                                >
+                                    <% commands.filter((cmd) => cmd.category === "Economy").forEach((cmd) => { %>
+                                        <option value="<%= cmd.data.name %>">
+                                            <%= client.capitalizeFirst(cmd.data.name) %>
+                                            </option>
+                                        <% }) %>
+                                </select>
+                                <h1 class="as-group-s">Mode</h1>
+                                <select 
+                                class="form-control selectpicker as-group-d"
+                                    data-width="100%"
+                                    data-live-search="true" 
+                                    aria-label="Mode"
+                                    name="disecomode">
+                                    <% ["Disable", "Enable"].forEach((mode) => { %>
+                                        <option value="<%= mode?.toLowerCase() %>">
+                                            <%= mode %>
+                                            </option>
+                                            <% }) %>
+                                </select>
+                                <button type="submit" class="btn btn-success text-white as-aaa">
+                            <i class="iconify" data-icon="cil:save"></i> Save Settings</button></form>
+                        </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+</html>

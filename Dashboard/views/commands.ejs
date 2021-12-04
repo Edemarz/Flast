@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title><%= client.user.username %> - Commands</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../public/command.css">
+<link rel="stylesheet" href="../public//index.css">
+    </head>
+    <body class="scrollable">
+        <div class="navbar-first">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <img src="../img/flask_logo.png" alt="" class="flast-img" onclick="redToHome()">
+                  <a class="navbar-brand" href="http://localhost:3001/">Flast</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="http://localhost:3001/commands">Commands</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<%= clientSettings.Flast.Server %>">Support & Community Server</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href=<%= process.env.INVITE_URL %>>Invite Me!</a>
+                      </li>
+                    </ul>
+                    <% req.isAuthenticated() ? ["placeholder for function"].forEach(() => { %>
+                      <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                        <ul class="navbar-nav">
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle user-data" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <span draggable="false">
+                                <% req.user ? [`https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}`].forEach((av) => { %>
+                                  <img src="<%= av %>" alt="" class="icon-url-user">
+                                  <% }) : null %>&nbsp;<strong class="user-name"><%= req.user.username %></strong>
+                              </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark user-items" aria-labelledby="navbarDarkDropdownMenuLink">
+                              <li><a class="dropdown-item" href="http://localhost:3001/dashboard">Dashboard</a></li>
+                              <li class="logout-class"><a class="dropdown-item" href="http://localhost:3001/logout">Log Out</a></li>
+                              <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                
+                <% }) : ["placeholder for function"].forEach(() => { %>
+                  <button class="navbar-link active loginBtn" onclick="loginSystem('log')">Login</button>
+                    <% }) %>
+                  </div>
+                </div>
+              </nav>
+        </div>
+        <div class="command-desc">
+          <h1>Flast Commands</h1>
+          <h2>Find all the information regarding the extensive list of slash commands available to you with Flast!</h2>
+        </div>
+        <div class="commands-section">
+          <div class="container px-lg-5" id="commands_menu">
+            <div class="row">
+              <div class="col-sm-3" id="category">
+                <div class="list-group" id="myList" role="tablist">
+                  <% cat.forEach((category, i) => { %>
+                    <a class="list-group-item list-group-item-action <%= i==0 ? 'active' : '' %>"  data-bs-toggle="list" href="#<%= category %>" role="tab" aria-controls="<%= category %>"><%= category %></a>
+                  <% }) %>
+                </div>
+              </div>
+            <div class="col-sm-9">
+              <div class="tab-content">
+                <% cat.forEach((category, k) => { %>
+                    <div class="tab-pane fade show <%= k == 0 ? 'active' : '' %>" id="<%= category %>" role="tabpanel" aria-labelledby="list-home-list">
+                      <div class="accordion" id="acc_<%= category %>">
+                        <% commands.filter((cmd) => cmd.category === category).forEach((cmd, i) => { %>
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="h_<%= cmd.data.name %>">
+                              <button class="accordion-button <%= i==0 ? '' : 'collapsed' %>" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#c_<%= cmd.data.name %>" 
+                                aria-expanded="<%= i==0 ? 'true' : 'false' %>"
+                                aria-controls="<%= cmd.data.name %>"
+                              >
+                                <%= cmd.data.name %>
+                              </button>
+                            </h2>
+                            <div id="c_<%= cmd.data.name %>" 
+                              class="accordion-collapse collapse <%= i==0 ? 'show' : ''%>" 
+                              aria-labelledby="h_<%= cmd.data.name %>" 
+                              data-bs-parent="#acc_<%= category %>">
+                              <div class="accordion-body">
+                              <code>Usage : </code><small><kbd><%= cmd.usage %></kbd></small><br>
+                              <code>Description : </code><%= cmd.data.description %> <br>
+                              <code>Cooldown : </code><small><kbd><%= cmd.cooldown ? `${cmd.cooldown / 60} Minutes` : "No Cooldown" %></kbd></small><br>
+                              <code>Category : </code><small><kbd><%= cmd.category %></kbd></small><br>
+                              <code>Permission : </code><small><kbd><%= cmd.perm ? cmd.perm : "No Permission Required" %></kbd></small>
+                              </div>
+                            </div>
+                          </div>
+                        <% }) %>
+                      </div>
+                    </div>
+                <% }) %>
+              </div>
+            </div>
+          </div>
+          </div>
+          </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        <script>
+          function loginSystem(state) {
+            if (state === 'authed') {
+              location.href = 'http://localhost:3001/dashboard'
+            };
+            if (state === 'log') {
+              location.href = 'http://localhost:3001/login'
+            }
+          }
+        </script>
+      </body>    
+</html>

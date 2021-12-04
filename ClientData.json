@@ -1,0 +1,21 @@
+{
+    "Flast": {
+        "ClientName": "Flast",
+        "Developer": "Edemarz#6565",
+        "Team": "Flast Development",
+        "DeveloperID": "738737213587587133",
+        "Server": "https://discord.gg/N9ECbJuxXZ",
+        "verEmoji": "⭐"
+    },
+    "TeamMembers": {
+        "Developer": "Edemarz#6565",
+        "Owner": "The Light#5002"
+    },
+    "Dashboard": {
+        "scope": ["identify", "guilds", "guilds.join"],
+        "clientId": "914701389542866964",
+        "clientSecret": "iud2h5l2L6UjF_98-tDggGa1zRii57jg",
+        "host": "http://localhost:3001",
+        "port": 3001
+    }
+}

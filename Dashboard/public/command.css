@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans&display=swap');
+
+*{
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.commands-section { 
+    background: #212529;
+}
+
+section {
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .command_head {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: white;
+  }
+  
+  #category {
+    border-radius: 5px;
+    padding-bottom: 50px;
+  }
+  
+  #category a {
+    background-color: #151f2e;
+    color: white;
+  }
+  #category a.active {
+    background-color: #5663F7;
+    border-color: #5663F7;
+  }
+  
+  .accordion-item {
+    background-color: #151f2e;
+    color: #9fadbd;
+  }
+  
+  .accordion-button {
+    color: white;
+    background-color: #151f2e;
+  }
+  
+  .accordion-button:not(.collapsed) {
+    color: white;
+    background-color: #5663F7;
+  }
+
+  .command-desc {
+      color: white;
+      text-align: center;
+  }
+  
+  /* .accordion-button:not(.collapsed)::after {
+    background-image: url(https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-512.png);
+    transform: rotate(180deg);
+    filter: invert(100%)
+  }
+  .accordion-button::after {
+     background-image: url(https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-512.png);
+  } */
+  
+  .accordion-button:focus {
+    z-index: 0;
+    border-color: transparent;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem transparent;
+  }
+  
+  .accordion-item:first-of-type {
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+  }
+  
+  
+  .accordion-item:last-of-type {
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+  }
+  
+  #commands_menu {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  
+  /* ANIMATION */
+  
+  .slide-up-fade-in{
+      animation: slide-up-fade-in ease 1.5s;
+  }
+
+  .navbar-first {
+    font-size: 20px;
+    border-radius: 4px;
+}
+
+.loginBtn {
+    position: relative;
+    border-radius: 7px;
+    border-color: #5865F2;
+    background-color: #5865F2;
+    padding: 4px 25px;
+    color: white;
+}
+
+body {
+    background: #212529;
+}
+
+.flast-img {
+    border-radius: 30px;
+    position: relative;
+    width: 60px;
+}
+.flast-img:hover {
+    cursor: pointer;
+}
+
+.navbar-brand {
+    position: relative;
+    font-size: 30px;
+    left: 4px;
+}
+
+.navbar-brand:hover {
+    color: rgb(160, 191, 231);
+}
+
+.info-about-flast {
+    position: relative;
+    top: 300px;
+    color: rgb(242, 244, 251);
+    text-align: center;
+}
+
+.flast-desc {
+    position: relative;
+    font-size: 25px;
+    color: rgb(155, 157, 159);
+    text-align: center;
+}
+
+.loginBtn:hover {
+    cursor: pointer;
+    background-color: #6b6efd;
+    border-color: #6b6efd;
+}
+
+.scrollable {
+    overflow: auto;
+}
+
+@keyframes slide-up-fade-in{
+    0% {
+        opacity:0;
+        transform:  translate(0px,40px)  ;
+    }
+    100% {
+        opacity:1;
+        transform:  translate(0px,0px)  ;
+    }
+}

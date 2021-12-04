@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans&display=swap');
+
+*{
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #5663F7;
+    border-color: #5663F7;
+}
+
+.navbar-first {
+    font-size: 20px;
+    border-radius: 4px;
+}
+
+.loginBtn {
+    position: relative;
+    border-radius: 7px;
+    border-color: #5865F2;
+    background-color: #5865F2;
+    padding: 4px 25px;
+    color: white;
+}
+
+body {
+    background: #212529;
+}
+
+.flast-img {
+    border-radius: 30px;
+    position: relative;
+    width: 60px;
+}
+.flast-img:hover {
+    cursor: pointer;
+}
+
+.navbar-brand {
+    position: relative;
+    font-size: 30px;
+    left: 4px;
+}
+
+.navbar-brand:hover {
+    color: rgb(160, 191, 231);
+}
+
+.info-about-flast {
+    position: relative;
+    top: 300px;
+    color: rgb(242, 244, 251);
+    text-align: center;
+}
+
+.flast-desc {
+    position: relative;
+    font-size: 25px;
+    color: rgb(155, 157, 159);
+    text-align: center;
+}
+
+.loginBtn:hover {
+    cursor: pointer;
+    background-color: #6b6efd;
+    border-color: #6b6efd;
+}
+
+.icon-url-user {
+    border-radius: 90px;
+    width: 20%;
+}
+
+/* .user-data {
+    position: relative;
+    left: 1100px;
+} */
+
+.dropdown {
+    position: relative;
+    left: 1100px;
+    transition: 0.5s;
+}
+
+.user-name {
+    color: white;
+    font-size: 15px;
+}
+
+.user-items {
+    background: rgb(23, 24, 27);
+}
+
+.scrollable {
+    overflow: auto;
+}
+
+.first-img {
+    position: relative;
+    border-radius: 10px;
+    left: 1100px;
+    top: 700px;
+}
+
+.first-img-desc {
+    position: relative;
+    color: rgb(155, 157, 159);
+    font-size: 25px;
+    left: 250px;
+    top: 450px;
+    border-radius: 4px;
+}
+
+.second-img {
+    border-radius: 10px;
+    position: relative;
+    left: 240px;
+    top: 645px;
+}
+
+.second-img-desc {
+    position: relative;
+    color: rgb(155, 157, 159);
+    left: 900px;
+    font-size: 25px;
+    top: 330px;
+    width: 40%;
+}
+
+.first-img-title {
+    font-size: 35px;
+    color: white;
+    position: relative;
+    left: 250px;
+    top: 450px;
+}
+
+.second-img-title {
+    position: relative;
+    color: white;
+    left: 900px;
+    top: 330px;
+    width: 40%;
+}
+
+.third-img {
+    border-radius: 10px;
+    position: relative;
+    left: 900px;
+    top: 400px;
+}
+
+.third-img-2 {
+    border-radius: 4px;
+    position: relative;
+    left: 830px;
+    top: 530px
+}
+
+.third-img-desc {
+    color: rgb(155, 157, 159);
+    font-size: 25px;
+    position: relative;
+    left: 250px;
+    width: 30%;
+    top: 200px
+}
+
+.third-img-title {
+    color: white;
+    font-size: 35px;
+    position: relative;
+    left: 250px;
+    top: 210px;
+    width: 30%;
+}
+
+.trip-s {
+    color: white;
+    font-size: 25px;
+    position: relative;
+    top: 25px;
+    display: block;
+    text-align: center;
+}
+
+.just-a-placeholder {
+    display: block;
+    color: rgb(31, 33, 41);
+}
+
+.guild-icons {
+    position: relative;
+    border-radius: 90px;
+    width: 5%;
+    align-items: center;
+}
+
+.version-div {
+    background: rgb(31, 33, 41);
+    position: relative;
+    bottom: 1000px;
+}
+
+.main-dash {
+    color: white;
+}
+
+.welc-msg {
+    text-align: center;
+    position: relative;
+    top: 100px;
+}
+
+.card {
+    border-radius: 6px;
+    background: inherit;
+    width: 0%;
+}
+
+.card-img-top {
+    border-radius: 10px;
+    position: relative;
+    left: 830px;
+    top: 250px;
+}
+
+.card-img-overlay {
+    border-radius: 10px;
+    left: 830px;
+    top: 250px;
+}
+
+.sdl {
+    left: 830px;
+    top: 250px;
+}
+
+.welc-inf {
+    text-align: center;
+    position: relative;
+    top: 150px;
+}
+
+/* .as-group-s {
+    color: white;
+    font-size: 25px;
+    text-align: center;
+}
+
+.as-group-b {
+    color: #5865F2;
+    font-size: 35px;
+    text-align: center;
+}
+
+.as-group-c {
+    color: rgb(155, 157, 159);
+    text-align: center;
+    font-size: 25px;
+}
+
+.as-group-d {
+    border-radius: 4px;
+    width: 40%;
+    text-align: center;
+    position: relative;
+    left: 570px;
+    border-color: #5865F2;
+}
+
+.as-group-d:hover {
+    cursor: pointer;
+}
+
+.as-group-db {
+    color: white;
+    text-align: center;
+}
+
+.as-aaa {
+    text-align: center;
+    position: relative;
+    left: 880px;
+}
+
+.as-group-dbb {
+    border-radius: 4px;
+    width: 40%;
+    text-align: center;
+    position: relative;
+    left: 570px;
+    border-color: #5865F2;
+} */
+
+.grouped-as-sk {
+    position: relative;
+    color: white;
+    left: 150px;
+    top: 50px;
+    width: 60%;
+    text-align: center;
+}
+
+.as-group-c {
+    color: rgb(155, 157, 159);
+    font-size: 20px;
+}
+
+.as-group-b {
+    font-size: 25px;
+}
+
+.as-aaa {
+    position: relative;
+    top: 20px;
+}
+
+.as-group-s {
+    font-size: 25px;
+}
+
+.grouped-as-sp {
+    position: relative;
+    background: #151f2e;
+    color: white;
+    left: 150px;
+    top: 50px;
+}
+
+.grouped-as-sp:hover {
+    background: #5663F7;
+    color: white;
+    cursor: pointer;
+    border-color: #5663F7;
+};
