@@ -3,6 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const EcoDB = require("../../models/EconomyDB");
 const { MessageEmbed } = require("discord.js");
 const EcoSettings = require("../../models/EcoSettings");
+const ActiveEffects = require("../../models/ActiveEffects");
 
 //Exporting Command
 module.exports = {
@@ -49,6 +50,10 @@ module.exports = {
             UserID: tar.id
         });
 
+        const TargetActiveEffects = await ActiveEffects.findOne({
+            UserID: tar.id
+        });
+
         if (!tarDB || tarDB.Wallet < 1 || tarDB.Wallet === 1 || tarDB.Wallet?.toString() == "1") return interaction.followUp({ embeds: [
             client.createEmbed({
                 text: `${user}, Who you are trying to rob has no money, Find someone else to rob, You criminal!`,
@@ -66,6 +71,59 @@ module.exports = {
         const exeDB = await EcoDB.findOne({
             UserID: user.id
         });
+
+        let included;
+
+        if (TargetActiveEffects) {
+
+            for (const effect of TargetActiveEffects.Effects) {
+                if (effect.name?.toLowerCase() == "padlock") included = true;
+            };
+        };
+
+        if (included || included === true ) {
+            const robbedBruh1 = new MessageEmbed()
+        .setAuthor(`${guild.name} Server | Rob`)
+        .setDescription(`${user}, You took too long opening ${tar.username}'s padlock and you were caught and paid F$5,000. Don't rob kiddo.`)
+        .setColor("BLURPLE")
+        .setTimestamp()
+        .setFooter(guild.name, guild.iconURL({ dynamic: true }))
+        .setThumbnail(guild.iconURL({ dynamic: true }))
+
+        const robbedBruh2 = new MessageEmbed()
+        .setAuthor(`${guild.name} Server | Rob`)
+        .setDescription(`${user}, You took too long opening ${tar.username}'s padlock and you were caught but since you had no money, you didn't lose anything.`)
+        .setColor("BLURPLE")
+        .setTimestamp()
+        .setFooter(guild.name, guild.iconURL({ dynamic: true }))
+        .setThumbnail(guild.iconURL({ dynamic: true }))
+
+            if (exeDB) {
+                await exeDB.updateOne({
+                    UserID: user.id,
+                    Wallet: exeDB.Wallet - 5000,
+                    Bank: exeDB.Bank
+                });
+    
+                await tarDB.updateOne({
+                    UserID: tar.id,
+                    Wallet: tarDB.Wallet + 5000,
+                    Bank: tarDB.Bank
+                });
+    
+                return interaction.followUp({ embeds: [robbedBruh1] });
+            };
+    
+            if (!exeDB) {
+                await new EcoDB({
+                    UserID: user.id,
+                    Wallet: 0,
+                    Bank: 0
+                }).save();
+    
+                return interaction.followUp({ embeds: [robbedBruh2] });
+            };
+        }
 
         const robbedBruh = new MessageEmbed()
         .setAuthor(`${guild.name} Server | Rob`)

@@ -115,6 +115,7 @@ module.exports = {
 
             if (int.isButton()) {
                 if (int.customId == `hit-bj-${user.id}`) {
+                    if (int.user.id !== user.id) return int.followUp({ content: `${user}, It's not your game.` });
                     await int.followUp({ content: 'Blackjack Game ^^^^^' }).then((msg) => msg.delete().catch((err) => null));
                     let hitAmount;
                     const check = int.message.embeds[0].fields[0].value.split('-')[1].replace(/♦️/gim, "").trim().substring(0, 1)?.toLowerCase();
@@ -504,6 +505,7 @@ module.exports = {
                     };
                 };
                 if (int.customId == `forfeit-bj-${user.id}`) {
+                    if (int.user.id !== user.id) return int.followUp({ content: `${user}, It's not your game.` });
                     await int.followUp({ content: `Blackjack Game ^^^` }).then((msg) => msg.delete().catch((err) => null));
 
                     const youForfeitted = new MessageEmbed()
@@ -550,6 +552,7 @@ module.exports = {
                 };
 
                 if (int.customId == `stand-bj-${user.id}`) {
+                    if (int.user.id !== user.id) return int.followUp({ content: `${user}, It's not your game.` });
                     await int.followUp({ content: "Blackjack Game ^^^" }).then((msg) => msg.delete().catch((err) => null));
 
                     const flastRand = Math.floor(Math.random() * 9) + 1;
