@@ -147,7 +147,7 @@ module.exports = {
                             embeds: [
                                 new MessageEmbed()
                                     .setAuthor(`${guild.name} Server | ${user.username}'s Blackjack`, guild.iconURL({ dynamic: true }))
-                                    .setDescription(`${user}, You got over 21 and lost! You have lost F$${amount?.toLocaleString()}`)
+                                    .setDescription(`${user}, You got over 21 and lost! You have lost F$${amount?.toLocaleString()} in return.`)
                                     .addFields(
                                         {
                                             name: `${user.username} (Player)`,
@@ -251,7 +251,7 @@ module.exports = {
                             embeds: [
                                 new MessageEmbed()
                                     .setAuthor(`${guild.name} Server | ${user.username}'s Blackjack`, guild.iconURL({ dynamic: true }))
-                                    .setDescription(`${user}, You won since your score (\`${totalScore}\`) reached 21 first than the dealer's score (\`${flastTotal}\`)!`)
+                                    .setDescription(`${user}, You won since your score (\`${totalScore}\`) reached 21 first than the dealer's score (\`${flastTotal}\`)! In return you got F$${amount?.toLocaleString()}`)
                                     .addFields(
                                         {
                                             name: `${user.username} (Player)`,
@@ -304,7 +304,7 @@ module.exports = {
                             embeds: [
                                 new MessageEmbed()
                                     .setAuthor(`${guild.name} Server | ${user.username}'s Blackjack`, guild.iconURL({ dynamic: true }))
-                                    .setDescription(`${user}, You lost since the dealer's score (\`${flastTotal}\`) reached 21 first!`)
+                                    .setDescription(`${user}, You lost since the dealer's score (\`${flastTotal}\`) reached 21 first! In return you lost F$${amount?.toLocaleString()}`)
                                     .addFields(
                                         {
                                             name: `${user.username} (Player)`,
@@ -357,7 +357,7 @@ module.exports = {
                             embeds: [
                                 new MessageEmbed()
                                     .setAuthor(`${guild.name} Server | ${user.username}'s Blackjack`, guild.iconURL({ dynamic: true }))
-                                    .setDescription(`${user}, You won since your score (\`${totalScore}\`) stood higher than the dealer's score (\`${flastTotal}\`)`)
+                                    .setDescription(`${user}, You won since your score (\`${totalScore}\`) stood higher than the dealer's score (\`${flastTotal}\`), In return you got F$${amount?.toLocaleString()}`)
                                     .addFields(
                                         {
                                             name: `${user.username} (Player)`,
@@ -410,7 +410,7 @@ module.exports = {
                             embeds: [
                                 new MessageEmbed()
                                     .setAuthor(`${guild.name} Server | ${user.username}'s Blackjack`, guild.iconURL({ dynamic: true }))
-                                    .setDescription(`${user}, You lost since your score (\`${totalScore}\`) stood lower than the dealer's score (\`${flastTotal}\`)`)
+                                    .setDescription(`${user}, You lost since your score (\`${totalScore}\`) stood lower than the dealer's score (\`${flastTotal}\`), In return you lost F$${amount?.toLocaleString()}`)
                                     .addFields(
                                         {
                                             name: `${user.username} (Player)`,
