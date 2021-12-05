@@ -58,6 +58,8 @@ module.exports = {
             if (i.name?.toLowerCase() == item) included = true
         });
 
+        let youHaveTheItem;
+
         if (!included) return interaction.followUp({
             embeds: [
                 new MessageEmbed()
@@ -69,7 +71,11 @@ module.exports = {
             ]
         });
 
-        if (!UserInv.Inventory.includes(client.capitalizeFirst(item))) return interaction.followUp({
+        for (const item1 of UserInv.Inventory) {
+            if (item1.item?.toLowerCase()?.trim() === item?.toLowerCase()?.trim()) youHaveTheItem = true
+        }
+
+        if (!youHaveTheItem) return interaction.followUp({
             embeds: [
                 new MessageEmbed()
                     .setAuthor(`${guild.name} Server | Use`)
@@ -332,7 +338,7 @@ module.exports = {
 
             const allButtons = new MessageActionRow().addComponents([confirmBtn, cancelBtn]);
 
-            interaction.followUp({ embeds: [confirmationEmbed], components: [allButtons] }).then((msg) => {
+            const msg1I = await interaction.followUp({ embeds: [confirmationEmbed], components: [allButtons] }).then((msg) => {
                 setTimeout(() => {
                     const confirmBtn1 = new MessageButton()
                         .setCustomId("confirm-use-padlock-disabled")
@@ -348,7 +354,15 @@ module.exports = {
 
                     const allButtons = new MessageActionRow().addComponents([confirmBtn1, cancelBtn1]);
 
-                    msg.edit({ embeds: [confirmationEmbed], components: [allButtons] });
+                    const confirmationEmbedTime = new MessageEmbed()
+                        .setAuthor(`${guild.name} Server | Use`, guild.iconURL({ dynamic: true }))
+                        .setDescription(`${user}, Are you sure you want to use a padlock?\n**Note**: If you already have a Padlock active, This effect does not stack, instead it resets the previous padlock duration to 2 hours again!\n\nClick Confirm to Confirm and Cancel to Cancel!\nYou have **15** seconds to decide.\n\nYou ran out of time.`)
+                        .setTimestamp()
+                        .setFooter(guild.name, guild.iconURL({ dynamic: true }))
+                        .setColor("BLURPLE")
+                        .setThumbnail(guild.iconURL({ dynamic: true }))
+
+                    msg.edit({ embeds: [confirmationEmbedTime], components: [allButtons] });
                 }, 15000);
             });
 
@@ -360,6 +374,7 @@ module.exports = {
                 if (int.isButton()) {
                     if (int.customId == `confirm-use-padlock-${user.id}`) {
                         if (int.user.id !== user.id) return interaction.followUp({ content: `${int.user}, It's not your decision idiot.` }); //The -${user.id} guarantees the user is the one executing this command!
+                        await int.followUp({ content: "Don't mind this" }).then((a) => a.delete().catch((err) => null));
                         const CheckingEffect = await ActiveEffects.findOne({
                             UserID: int.user.id
                         });
@@ -367,7 +382,7 @@ module.exports = {
                         if (CheckingEffect) {
                             const findingIndex = await UserInv.Inventory.findIndex((eff) => eff.item?.toLowerCase() == "padlock");
 
-                            if (findingIndex && findingIndex?.tostring() != "-1") {
+                            if (findingIndex && findingIndex?.toString() != "-1") {
                                 await UserInv.Inventory.slice(findingIndex, findingIndex + 1);
                                 await UserInv.updateOne({
                                     UserID: user.id,
@@ -398,15 +413,29 @@ module.exports = {
                                 });
                             }, 7200000);
 
-                            const padlockUsed = new MessageEmbed()
-                            .setAuthor(`${guild.name} Server | Padlock Used`, guild.iconURL({ dynamic: true }))
-                            .setDescription(`${user}, You have used a padlock, Now your wallet is safe from robbers for **2** hours!`)
-                            .setColor("BLURPLE")
-                            .setTimestamp()
-                            .setFooter(guild.name, guild.iconURL({ dynamic: true }))
-                            .setThumbnail(guild.iconURL({ dynamic: true }));
+                            const confirmBtn1 = new MessageButton()
+                                .setCustomId("confirm-use-padlock-disabled")
+                                .setLabel("Confirm")
+                                .setStyle("SUCCESS")
+                                .setDisabled(true)
 
-                            interaction.followUp({ embeds: [padlockUsed] });
+                            const cancelBtn1 = new MessageButton()
+                                .setCustomId("cancel-use-padlock-disabled")
+                                .setLabel("Cancel")
+                                .setStyle("DANGER")
+                                .setDisabled(true)
+
+                            const allButtons = new MessageActionRow().addComponents([confirmBtn1, cancelBtn1]);
+
+                            const padlockUsed = new MessageEmbed()
+                                .setAuthor(`${guild.name} Server | Padlock Used`, guild.iconURL({ dynamic: true }))
+                                .setDescription(`${user}, You have used a padlock, Now your wallet is safe from robbers for **2** hours!`)
+                                .setColor("BLURPLE")
+                                .setTimestamp()
+                                .setFooter(guild.name, guild.iconURL({ dynamic: true }))
+                                .setThumbnail(guild.iconURL({ dynamic: true }));
+
+                            msg1I.edit({ embeds: [padlockUsed], components: [allButtons] });
                             return;
                         };
 
@@ -433,7 +462,7 @@ module.exports = {
                                 });
 
                                 if (!CheckingEffect1) return;
-                                
+
                                 const filteredEffects = [];
 
                                 await CheckingEffect1.Effects.filter((e) => e.name?.toLowerCase() != "padlock").forEach((ef) => filteredEffects.push(ef));
@@ -445,16 +474,58 @@ module.exports = {
                             }, 7200000);
 
                             const padlockUsed = new MessageEmbed()
-                            .setAuthor(`${guild.name} Server | Padlock Used`, guild.iconURL({ dynamic: true }))
-                            .setDescription(`${user}, You have used a padlock, Now your wallet is safe from robbers for **2** hours!`)
-                            .setColor("BLURPLE")
+                                .setAuthor(`${guild.name} Server | Padlock Used`, guild.iconURL({ dynamic: true }))
+                                .setDescription(`${user}, You have used a padlock, Now your wallet is safe from robbers for **2** hours!`)
+                                .setColor("BLURPLE")
+                                .setTimestamp()
+                                .setFooter(guild.name, guild.iconURL({ dynamic: true }))
+                                .setThumbnail(guild.iconURL({ dynamic: true }));
+
+                            const confirmBtn1 = new MessageButton()
+                                .setCustomId("confirm-use-padlock-disabled")
+                                .setLabel("Confirm")
+                                .setStyle("SUCCESS")
+                                .setDisabled(true)
+
+                            const cancelBtn1 = new MessageButton()
+                                .setCustomId("cancel-use-padlock-disabled")
+                                .setLabel("Cancel")
+                                .setStyle("DANGER")
+                                .setDisabled(true)
+
+                            const allButtons = new MessageActionRow().addComponents([confirmBtn1, cancelBtn1]);
+
+                            msg1I.edit({ embeds: [padlockUsed], components: [allButtons] });
+                            return;
+                        }
+                    };
+
+                    if (int.customId == `cancel-use-padlock-${user.id}`) {
+                        await int.followUp({ content: "Don't mind this" }).then((a) => a.delete().catch((err) => null))
+                        const padlockUsed = new MessageEmbed()
+                            .setAuthor(`${guild.name} Server | Padlock Use Canceled`, guild.iconURL({ dynamic: true }))
+                            .setDescription(`${user}, You have canceled using a padlock. Why don't ya want your wallet protected?`)
+                            .setColor("RED")
                             .setTimestamp()
                             .setFooter(guild.name, guild.iconURL({ dynamic: true }))
                             .setThumbnail(guild.iconURL({ dynamic: true }));
 
-                            interaction.followUp({ embeds: [padlockUsed] });
-                            return;
-                        }
+                        const confirmBtn1 = new MessageButton()
+                            .setCustomId("confirm-use-padlock-disabled")
+                            .setLabel("Confirm")
+                            .setStyle("SUCCESS")
+                            .setDisabled(true)
+
+                        const cancelBtn1 = new MessageButton()
+                            .setCustomId("cancel-use-padlock-disabled")
+                            .setLabel("Cancel")
+                            .setStyle("DANGER")
+                            .setDisabled(true)
+
+                        const allButtons = new MessageActionRow().addComponents([confirmBtn1, cancelBtn1]);
+
+                        msg1I.edit({ embeds: [padlockUsed], components: [allButtons] });
+                        return;
                     }
                 }
             })

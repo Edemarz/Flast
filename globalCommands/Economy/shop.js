@@ -122,16 +122,27 @@ module.exports = {
                     Wallet: UserBalance.Wallet - realPrice,
                     Bank: UserBalance.Bank
                 });
+                
+                let itemItems = [];
+                let networthItems = 0;
 
                 for (let i = 0; i < a; i++) {
-                    await UserInv.Inventory.push({ item: CompleteItemData.name, price: CompleteItemData.price });
+                    await itemItems.push({ item: CompleteItemData.name, price: CompleteItemData.price });
+                    networthItems = networthItems + CompleteItemData.price
                 };
 
-                await UserInv.updateOne({
-                    UserID: user.id,
-                    Inventory: UserInv.Inventory,
-                    Networth: UserInv.Networth + realPrice
+                await UserInv.Inventory.forEach((itemInv) => {
+                    itemItems.push(itemInv);
+                    networthItems = networthItems + itemInv.price
                 });
+
+                await UserInv.deleteOne();
+
+                await new InvDB({
+                    UserID: user.id,
+                    Inventory: itemsItem,
+                    Networth: networthItems
+                }).save();
 
                 return interaction.followUp({ embeds: [
                     new MessageEmbed()
@@ -142,20 +153,33 @@ module.exports = {
                     .setFooter(guild.name, guild.iconURL({ dynamic: true }))
                 ]})
             };
+            
+            let networthPrice = 0;
+            let itemsItem = [];
 
             await UserBalance.updateOne({
                 UserID: user.id,
                 Wallet: UserBalance.Wallet - CompleteItemData.price,
-                Bank: UserBalance.Banl
+                Bank: UserBalance.Bank
             });
 
-            await UserInv.Inventory.push({ item: CompleteItemData.name, price: CompleteItemData.price });
+            await UserInv.Inventory.forEach((inv) => {
+                itemsItem.push(inv);
+                networthPrice = networthPrice + inv.price
+            });
+            
+            await itemsItem.push({ item: CompleteItemData.name, price: CompleteItemData.price });
+            networthPrice = networthPrice + CompleteItemData.price;
 
-            await UserInv.updateOne({
+            await UserInv.deleteOne();
+
+            console.log(itemsItem, networthPrice);
+
+            await new InvDB({
                 UserID: user.id,
-                Inventory: UserBalance.Inventory,
-                Networth: UserInv.Networth + CompleteItemData.price
-            });
+                Inventory: itemsItem,
+                Networth: networthPrice
+            }).save();
 
             return interaction.followUp({ embeds: [
                 new MessageEmbed()

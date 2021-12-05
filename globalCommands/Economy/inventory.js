@@ -70,13 +70,17 @@ module.exports = {
 
             let laptopAmount = 0;
 
-            let textData;
+            let padlockAmount = 0;
+
+            let textData = ``;
 
             for (const item of SearchInv.Inventory) {
                 if (item.item?.toLowerCase() == "laptop") laptopAmount++;
-            }
+                if (item.item?.toLowerCase() == "padlock") padlockAmount++;
+            };
 
-            if (laptopAmount?.toString() != "0") textData = `💻 **Laptop** ─ ${laptopAmount}`;
+            if (laptopAmount?.toString() != "0") textData += `💻 **Laptop** ─ ${laptopAmount}\n`;
+            if (padlockAmount?.toString() != "0") textData += `🔒 **Padlock** ─ ${padlockAmount}\n`
 
             const UserInv = new MessageEmbed()
             .setAuthor(`${user.tag} Inventory | ${guild.name} Server`, user.displayAvatarURL({ dynamic: true }))

@@ -10,7 +10,7 @@ module.exports = {
         {
             name: "Padlock",
             price: 10000,
-            emoji: "🔐",
+            emoji: "🔒",
             description: "Buy a Padlock and use it to secure your wallet from robbers for 2 hours!",
             useable: true
         }
