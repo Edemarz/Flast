@@ -570,7 +570,7 @@ module.exports = {
                                         value: int.message.embeds[0].fields[0].value
                                     },
                                     {
-                                        name: int.message.embeds[0].fields[0].name,
+                                        name: int.message.embeds[0].fields[1].name,
                                         value: `Cards - ${(flastCards).map((c1) => `${c1}`).join(' ').toString()}\nTotal - ${flastAmount + flastRand}`
                                     }
                                 )
@@ -623,7 +623,7 @@ module.exports = {
                                         value: int.message.embeds[0].fields[0].value
                                     },
                                     {
-                                        name: int.message.embeds[0].fields[0].name,
+                                        name: int.message.embeds[0].fields[1].name,
                                         value: `Cards - ${(flastCards).map((c1) => `${c1}`).join(' ').toString()}\nTotal - ${flastAmount + flastRand}`
                                     }
                                 )
@@ -676,7 +676,7 @@ module.exports = {
                                         value: int.message.embeds[0].fields[0].value
                                     },
                                     {
-                                        name: int.message.embeds[0].fields[0].name,
+                                        name: int.message.embeds[0].fields[1].name,
                                         value: `Cards - ${(flastCards).map((c1) => `${c1}`).join(' ').toString()}\nTotal - ${flastTotalScore}`
                                     }
                                 )
@@ -729,7 +729,7 @@ module.exports = {
                                         value: int.message.embeds[0].fields[0].value
                                     },
                                     {
-                                        name: int.message.embeds[0].fields[0].name,
+                                        name: int.message.embeds[0].fields[1].name,
                                         value: `Cards - ${(flastCards).map((c1) => `${c1}`).join(' ').toString()}\nTotal - ${flastTotalScore}`
                                     }
                                 )
