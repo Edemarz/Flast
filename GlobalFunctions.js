@@ -7,7 +7,8 @@ module.exports = {
     },
     getMonth: require("./Functions/getMonth"),
     findAll_Type_Collection: require("./Functions/findAll.collection"),
-    checkEcoDisabled: require("./Functions/checkDisabled")
+    checkEcoDisabled: require("./Functions/checkDisabled"),
+    Sleep: require("./Functions/Sleep")
 };
 
 /* 

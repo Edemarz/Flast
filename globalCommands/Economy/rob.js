@@ -4,6 +4,7 @@ const EcoDB = require("../../models/EconomyDB");
 const { MessageEmbed } = require("discord.js");
 const EcoSettings = require("../../models/EcoSettings");
 const ActiveEffects = require("../../models/ActiveEffects");
+const Functions = require("../../GlobalFunctions");
 
 //Exporting Command
 module.exports = {
@@ -82,10 +83,23 @@ module.exports = {
         };
 
         if (included || included === true ) {
+        const msg = await interaction.channel.send({ content: `Opening ${tar.username}'s Padlock.` });
+
+        await Functions.Sleep(1.5);
+        msg.edit({ content: `Opening ${tar.username}'s Padlock..` });
+        await Functions.Sleep(1.5);
+        msg.edit({ content: `Opening ${tar.username}'s Padlock...` });
+        await Functions.Sleep(1.5);
+        msg.edit({ content: `Opening ${tar.username}'s Padlock.` });
+        await Functions.Sleep(1.5);
+        msg.edit({ content: `Opening ${tar.username}'s Padlock..` });
+        await Functions.Sleep(1.5);
+        msg.edit({ content: `Opening ${tar.username}'s Padlock...` });
+        await Functions.Sleep(1.5);
             const robbedBruh1 = new MessageEmbed()
         .setAuthor(`${guild.name} Server | Rob`)
         .setDescription(`${user}, You took too long opening ${tar.username}'s padlock and you were caught and paid F$5,000. Don't rob kiddo.`)
-        .setColor("BLURPLE")
+        .setColor("RED")
         .setTimestamp()
         .setFooter(guild.name, guild.iconURL({ dynamic: true }))
         .setThumbnail(guild.iconURL({ dynamic: true }))
@@ -93,7 +107,7 @@ module.exports = {
         const robbedBruh2 = new MessageEmbed()
         .setAuthor(`${guild.name} Server | Rob`)
         .setDescription(`${user}, You took too long opening ${tar.username}'s padlock and you were caught but since you had no money, you didn't lose anything.`)
-        .setColor("BLURPLE")
+        .setColor("RED")
         .setTimestamp()
         .setFooter(guild.name, guild.iconURL({ dynamic: true }))
         .setThumbnail(guild.iconURL({ dynamic: true }))

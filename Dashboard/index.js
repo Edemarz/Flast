@@ -129,7 +129,7 @@ module.exports = async (client) => {
   });
 
   app.get("/dashboard", (req, res) => {
-    if (!req.isAuthenticated() || req.isAuthenticated() === false) return res.redirect("http://localhost:3001/login");
+    if (!req.isAuthenticated() || req.isAuthenticated() === false) return res.redirect(`${ClientSettings.Dashboard.host}/login`);
     res.render("dashboard", {
       req: req,
       user: req.isAuthenticated() ? req.user : null,

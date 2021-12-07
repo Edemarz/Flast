@@ -395,7 +395,7 @@ module.exports = {
                             //I was debugging here
 
                             if (int.isButton()) {
-                                if ((int.user.id === interaction.user.id) === false) return int.reply({ content: `${int.user}, This is not your work time, go away`, ephemeral: true });
+                                if (int.user.id !== interaction.user.id) return int.reply({ content: `${int.user}, This is not your work time, go away`, ephemeral: true });
                                 await int
                                     .deferReply({ ephemeral: false })
                                     .catch(() => null);

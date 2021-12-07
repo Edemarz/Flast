@@ -8,20 +8,25 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../public/index.css">
+<meta content="Flast - Dashboard" property="og:title" />
+<meta content="The official Flast Dashboard, Customize everything of the bot in your server!" property="og:description" />
+<meta content="<%= clientSettings.Dashboard.host %>/dashboard" property="og:url" />
+<meta content="https://i.imgur.com/EgHSrAd.png" property="og:image" />
+<meta content="#3e8ade" data-react-helmet="true" name="theme-color" />
     </head>
     <body class="scrollable">
         <div class="navbar-first">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                   <img src="../img/flask_logo.png" alt="" class="flast-img" onclick="redToHome()">
-                  <a class="navbar-brand" href="http://localhost:3001/">Flast</a>
+                  <a class="navbar-brand" href="<%= clientSettings.Dashboard.host %>/">Flast</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
                   <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="http://localhost:3001/commands">Commands</a>
+                        <a class="nav-link" aria-current="page" href="<%= clientSettings.Dashboard.host %>/commands">Commands</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="<%= clientSettings.Flast.Server %>">Support & Community Server</a>
@@ -42,8 +47,8 @@
                                 </span>
                               </a>
                               <ul class="dropdown-menu dropdown-menu-dark user-items" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="http://localhost:3001/dashboard">Dashboard</a></li>
-                                <li class="logout-class"><a class="dropdown-item" href="http://localhost:3001/logout">Log Out</a></li>
+                                <li><a class="dropdown-item" href="<%= clientSettings.Dashboard.host %>/dashboard">Dashboard</a></li>
+                                <li class="logout-class"><a class="dropdown-item" href="<%= clientSettings.Dashboard.host %>/logout">Log Out</a></li>
                                 <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                               </ul>
                             </li>
@@ -102,7 +107,7 @@
                                 name="muterole">
                                 <% guild.roles.cache.filter((rl) => rl.id).sort((a, b) => b.rawPosition - a.rawPosition).forEach((rl) => { %>
                                     <option value="<%= rl.id %>">
-                                        @<%= rl.name %>
+                                        @<%= rl.name.replace(/@/gim, "") %>
                                     </option>
                                     <% }) %>
                             </select><br>
@@ -114,7 +119,7 @@
                                 name="memrole">
                                 <% guild.roles.cache.filter((rl) => rl.id).sort((a, b) => b.rawPosition - a.rawPosition).forEach((rl) => { %>
                                     <option value="<%= rl.id %>">
-                                        @<%= rl.name %>
+                                        @<%= rl.name.replace(/@/gim, "") %>
                                     </option>
                                     <% }) %>
                             </select>
@@ -146,7 +151,7 @@
                                 name="verrole">
                                 <% guild.roles.cache.filter((rl) => rl.id).sort((a, b) => b.rawPosition - a.rawPosition).forEach((rl) => { %>
                                     <option value="<%= rl.id %>">
-                                        @<%= rl.name %>
+                                        @<%= rl.name.replace(/@/gim, "") %>
                                     </option>
                                     <% }) %>
                             </select>
@@ -195,7 +200,7 @@
                                 >
                                     <% guild.roles.cache.filter((rl) => rl.id).sort((a, b) => b.rawPosition - a.rawPosition).forEach((role) => { %>
                                         <option value="<%= role.id%>">
-                                            @<%= role.name%>
+                                            @<%= role.name.replace(/@/gim, "") %>
                                         </option>
                                     <% }) %>
                                 </select>
@@ -236,7 +241,7 @@
                                         .sort((a, b) => b.rawPosition - a.rawPosition)
                                         .forEach((role) => { %>
                                         <option value="<%= role.id%>">
-                                            @<%= role.name%>
+                                            @<%= role.name.replace(/@/gim, "") %>
                                         </option>
                                     <% }) %>
                                 </select>
