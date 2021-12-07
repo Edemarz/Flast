@@ -84,28 +84,28 @@ client.queue = new Map();
 client.loop = new Map();
 client.queueLoop = new Map();
 client.audioPlayer = new Map();
-client.findVideo = async function(query) {
+client.findVideo = async function (query) {
     const result = await ytSearch(query);
     return (result.videos.length > 1) ? result.videos[0] : null
 };
 client.connection = new Map();
-client.createEmbed = function(option = {}) {
+client.createEmbed = function (option = {}) {
     if (!option) return;
     const embed = new MessageEmbed()
-    .setDescription(option.text)
-    .setColor(option.color)
-    .setFooter(option.footerOne, option.footerTwo)
-    .setThumbnail(option.thumbnail)
-    .setTimestamp()
+        .setDescription(option.text)
+        .setColor(option.color)
+        .setFooter(option.footerOne, option.footerTwo)
+        .setThumbnail(option.thumbnail)
+        .setTimestamp()
 
     return embed;
 };
 client.Permissions = Permissions.FLAGS;
 client.categories = [];
-client.capitalizeFirst = function(text) {
+client.capitalizeFirst = function (text) {
     let firstLet = text.substring(0, 1);
     let restLet = text.substring(1, text.length);
-    
+
     return firstLet?.toUpperCase() + restLet?.toLowerCase();
 };
 
