@@ -7,9 +7,9 @@ const { MessageEmbed } = require("discord.js");
 //Exporting the Command!
 module.exports = {
     data: new SlashCommandBuilder() //Build the Slash Command
-    .setName("leaderboard")
-    .setDefaultPermission(true)
-    .setDescription("The Global Economy Leaderboard!"),
+        .setName("leaderboard")
+        .setDefaultPermission(true)
+        .setDescription("The Global Economy Leaderboard!"),
     category: "Economy",
     usage: "/leaderboard",
     perm: "Send Messages",
@@ -21,15 +21,17 @@ module.exports = {
 
         //If it is Disabled, send a message
 
-        if (isDisabled) return interaction.followUp({ embeds: [
-            client.createEmbed({
-                text: `${user}, The leaderboard command & system is disabled in this server, Please ask an admin to enable it either on the [Dashboard](${client.config.Dashboard.host}/) or by doing \`\`\`\n/enable-economy-command <Command>\n\`\`\``,
-                color: "RED",
-                footerOne: guild.name,
-                footerTwo: guild.iconURL({ dynamic: true }),
-                thumbnail: guild.iconURL({ dynamic: true })
-            })
-        ]});
+        if (isDisabled) return interaction.followUp({
+            embeds: [
+                client.createEmbed({
+                    text: `${user}, The leaderboard command & system is disabled in this server, Please ask an admin to enable it either on the [Dashboard](${client.config.Dashboard.host}/) or by doing \`\`\`\n/enable-economy-command <Command>\n\`\`\``,
+                    color: "RED",
+                    footerOne: guild.name,
+                    footerTwo: guild.iconURL({ dynamic: true }),
+                    thumbnail: guild.iconURL({ dynamic: true })
+                })
+            ]
+        });
 
         //Get all the documents in the Economy Database!
 
@@ -45,12 +47,12 @@ module.exports = {
         }(0));
 
         const returningEmbed = new MessageEmbed()
-        .setAuthor(`${guild.name} | Global Economy Leaderboard`)
-        .setDescription((allData).map((eco) => `${increment()}. ${client.users.cache.get(eco.UserID) ? client.users.cache.get(eco.UserID).tag : "Unknown"}\n\`\`\`js\nWallet: F$${eco.Wallet?.toLocaleString()}\nBank: F$${eco.Bank?.toLocaleString()}\n\`\`\``).join("\n").toString())
-        .setColor("AQUA")
-        .setTimestamp()
-        .setFooter(guild.name, guild.iconURL({ dynamic: true }))
-        .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+            .setAuthor(`${guild.name} | Global Economy Leaderboard`)
+            .setDescription((allData).sort((a, b) => b.Wallet - a.Wallet).map((eco) => `${increment()}. ${client.users.cache.get(eco.UserID) ? client.users.cache.get(eco.UserID).tag : "Unknown"}\n\`\`\`js\nWallet: F$${eco.Wallet?.toLocaleString()}\nBank: F$${eco.Bank?.toLocaleString()}\n\`\`\``).join("\n").toString())
+            .setColor("AQUA")
+            .setTimestamp()
+            .setFooter(guild.name, guild.iconURL({ dynamic: true }))
+            .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
 
         return interaction.followUp({ embeds: [returningEmbed] });
     }
